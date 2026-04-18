@@ -160,6 +160,9 @@ media/uploads/
 media/output/
 screenshots/
 
+# Face image captures and training data
+faces/
+
 # Logs
 *.log
 face_log.csv

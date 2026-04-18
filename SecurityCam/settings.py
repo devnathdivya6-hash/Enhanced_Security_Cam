@@ -21,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-hk0c57(exq-7)=!bww71b10uew#%ynv^d$v*7x5%-r)oeemj5q'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-hk0c57(exq-7)=!bww71b10uew#%ynv^d$v*7x5%-r)oeemj5q')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DJANGO_DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', '').split(',') if os.getenv('DJANGO_ALLOWED_HOSTS') else []
 
 
 # Application definition
@@ -139,7 +139,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'  # For Gmail SMTP
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'devnathdivya6@gmail.com'  # Your email address
-EMAIL_HOST_PASSWORD = 'sapn qpii chek zvpd'  # Your email password or App Password (if 2FA enabled)
-DEFAULT_FROM_EMAIL = 'devnathdivya6@gmail.com'  # Default 'from' email
-DEFAULT_RECEIVER_EMAIL = 'devnathdivya6@gmail.com'
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', EMAIL_HOST_USER)
+DEFAULT_RECEIVER_EMAIL = os.getenv('DEFAULT_RECEIVER_EMAIL', '')

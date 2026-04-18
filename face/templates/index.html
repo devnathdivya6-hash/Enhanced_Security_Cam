@@ -1,0 +1,715 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="{% static 'images/logo-removebg-preview.png' %}" type="">
+
+  <title> Cipher </title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css'%}" />
+
+  <!-- fonts style -->
+  <link href="{% static 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap'%}" rel="stylesheet">
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
+  {% if messages %}
+  {% for message in messages %}
+  {% if 'log' in message.tags %}
+    <script>
+      alert("{{ message }}")
+    </script>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+</head>
+
+<body>
+
+  <div class="hero_area">
+
+    <div class="hero_bg_box">
+      <div class="bg_img_box">
+        <img src="{% static 'images/hero-bg.png' %}" alt="">
+      </div>
+    </div>
+
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg custom_nav-container ">
+          <a class="navbar-brand" href="index.html">
+            <span>
+              Enhanced Security Cam <br> Cipher
+            </span>
+          </a>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class=""> </span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+               <!-- Conditional rendering based on usertype -->
+            {% if user.is_authenticated %}
+            {% if user.usertype == "admin" %}
+              <!-- Links for usertype 0 -->
+              <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <!-- <li class="nav-item">
+                <a class="nav-link" href="/about">About</a>
+              </li> -->
+              <li class="nav-item">
+                <a class="nav-link" href="/viewusers">View Users</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin-messages">View Messages</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/logout">Sign Out</a>
+              </li>
+            {% elif user.usertype == "user" %}
+              <!-- Links for usertype 1 -->
+              <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <!-- <li class="nav-item">
+                <a class="nav-link" href="/about">About</a>
+              </li> -->
+              <li class="nav-item">
+                <a class="nav-link" href="/detect/"> Objects</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/scanface">Scan Faces</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/upload_video"> Violence</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/record_voice">Message</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/my-messages">Responses</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/profile">Profile</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/logout">Sign Out</a>
+              </li>
+            {% endif %}
+
+            {% else %}
+              <!-- Links for unauthenticated users -->
+              <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/about">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/service">Services</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/why">Why Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/team">Team</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/login"><i class="fa fa-user" aria-hidden="true"></i> Sign In</a>
+              </li>
+            {% endif %}
+          
+
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- end header section -->
+    <!-- slider section -->
+    
+    <section class="slider_section ">
+      <div id="customCarousel1" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="container ">
+              <div class="row">
+                <div class="col-md-6 ">
+                  <div class="detail-box">
+                    <h1>
+                      Face <br>
+                      Recognition
+                    </h1>
+                    <p>
+                      Facial recognition is a way of identifying or confirming an individual's identity using their face. Facial recognition systems can be used to identify people in photos, videos, or in real-time.
+                    </p>
+                    <div class="btn-box">
+                      <a href="" class="btn1">
+                        Read More
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="img-box">
+                    <img src="{% static 'images/slider-img.png'%}" alt="">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item ">
+            <div class="container ">
+              <div class="row">
+                <div class="col-md-6 ">
+                  <div class="detail-box">
+                    <h1>
+                      Object <br>
+                      Detection
+                    </h1>
+                    <p>
+                      Object detection is a computer vision technique that identifies and classifies objects in images or videos. <br>
+                      Machine learning object recognition is the core of most vision-based AI software and programs.
+                    </p>
+                    <div class="btn-box">
+                      <a href="" class="btn1">
+                        Read More
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="img-box">
+                    <img src="{% static 'images/slider-img.png'%}" alt="">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="container ">
+              <div class="row">
+                <div class="col-md-6 ">
+                  <div class="detail-box">
+                    <h1>
+                      violence <br>
+                      Detection 
+                    </h1>
+                    <p>
+                      In violence detection, they can identify patterns, objects, and movements within video frames.
+                    </p>
+                    <div class="btn-box">
+                      <a href="" class="btn1">
+                        Read More
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="img-box">
+                    <img src="{% static 'images/slider-img.png'%}" alt="">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ol class="carousel-indicators">
+          <li data-target="#customCarousel1" data-slide-to="0" class="active"></li>
+          <li data-target="#customCarousel1" data-slide-to="1"></li>
+          <li data-target="#customCarousel1" data-slide-to="2"></li>
+        </ol>
+      </div>
+
+    </section>
+    <!-- end slider section -->
+  </div>
+
+
+  <!-- service section -->
+
+  <section class="service_section layout_padding">
+    <div class="service_container">
+      <div class="container ">
+        <div class="heading_container heading_center">
+          <h2>
+            Our <span>Services</span>
+          </h2>
+          <p>
+            Empowering safety with cutting-edge technology: our advanced facial recognition, object detection, and violence 
+            detection systems ensure peace of mind and proactive security for every environment
+          </p>
+        </div>
+        <div class="row">
+          <div class="col-md-4 ">
+            <div class="box ">
+              <div class="img-box">
+                <img src="{% static 'images/s1.jpg'%}" alt="">
+              </div>
+              <div class="detail-box">
+                <h5>
+                  Facial Recognition
+                </h5>
+                <p>
+                  Facial recognition identifies individuals by analyzing their facial features and comparing them to a database 
+                  of known faces. This technology enhances security by enabling real-time identification and monitoring access to 
+                  restricted areas
+                </p>
+                <!-- <a href="">
+                  Read More
+                </a> -->
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 ">
+            <div class="box ">
+              <div class="img-box">
+                <img src="{% static 'images/s2.png'%}" alt="">
+              </div>
+              <div class="detail-box">
+                <h5>
+                  Object Detection
+                </h5>
+                <p>
+                  Object detection identifies and locates specific objects in images or videos using advanced algorithms. 
+                  This technology enhances security by alerting users to potential threats and unusual activities in real time
+                </p>
+                <!-- <a href="">
+                  Read More
+                </a> -->
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 ">
+            <div class="box ">
+              <div class="img-box">
+                <img src="{% static 'images/s3.webp'%}" alt="">
+              </div>
+              <div class="detail-box">
+                <h5>
+                  Violence Detection
+                </h5>
+                <p>
+                  Violence detection identifies aggressive behavior in video footage using advanced algorithms. This technology 
+                  triggers real-time alerts, enhancing security and enabling a swift response to potential threats
+                </p>
+                <!-- <a href="">
+                  Read More
+                </a> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="btn-box">
+          <a href="">
+            View All
+          </a>
+        </div> -->
+      </div>
+    </div>
+  </section>
+
+  <!-- end service section -->
+
+
+  <!-- about section -->
+
+  <section class="about_section layout_padding">
+    <div class="container  ">
+      <div class="heading_container heading_center">
+        <h2>
+          About <span>Us</span>
+        </h2>
+        <p>
+          Empowering safety through innovation, Cipher transforms security into a smart, personalized experience
+        </p>
+      </div>
+      <div class="row">
+        <div class="col-md-6 ">
+          <div class="img-box">
+            <img src="{% static 'images/cypher.png'%}" alt="">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="detail-box">
+            <h3>
+              We Are <span>Cipher</span>
+            </h3>
+            <p>
+              At Cipher, we redefine security with our advanced camera solutions that protect your spaces like a code protects 
+              information. Our innovative features—including facial recognition, object detection, and violence detection—transform 
+              how you monitor and respond to potential threats.
+            </p>
+            <p>
+              Join us in creating safer spaces with innovative technology that works for you. Together, we can build a future 
+              where security is smart, effective, and accessible.
+            </p>
+            <a href="/about">
+              Read More
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- end about section -->
+
+  <!-- why section -->
+
+  <section class="why_section layout_padding">
+    <div class="container">
+      <div class="heading_container heading_center">
+        <h2>
+          Why Choose <span>Us</span>
+        </h2>
+      </div>
+      <div class="why_container">
+        <div class="box">
+          <div class="img-box">
+            <img src="{% static 'images/w1.png'%}" alt="">
+          </div>
+          <div class="detail-box">
+            <h5>
+              Advanced Security Features
+            </h5>
+            <p>
+              Our cutting-edge surveillance systems are equipped with state-of-the-art features like facial recognition, 
+              object detection, and violence detection. These technologies enhance your security by accurately identifying potential 
+              threats and providing you with the information needed to respond swiftly
+            </p>
+          </div>
+        </div>
+        <div class="box">
+          <div class="img-box">
+            <img src="{% static 'images/w2.png'%}" alt="">
+          </div>
+          <div class="detail-box">
+            <h5>
+              Remote Monitoring
+            </h5>
+            <p>
+              Our innovative intercom system allows you to monitor and control your security setup from anywhere in the world. 
+              Whether you're at home or on the go, you can easily access live feeds and communicate with visitors, giving you peace 
+              of mind and enhanced control over your premises
+            </p>
+          </div>
+        </div>
+        <div class="box">
+          <div class="img-box">
+            <img src="{% static 'images/w3.png'%}" alt="">
+          </div>
+          <div class="detail-box">
+            <h5>
+              Tailored Solutions
+            </h5>
+            <p>
+              We understand that every environment has unique security needs. Our team collaborates closely with you to design 
+              customized security solutions that address your specific concerns, ensuring optimal performance and protection 
+              tailored to your situation
+            </p>
+          </div>
+        </div>
+        <div class="box">
+          <div class="img-box">
+            <img src="{% static 'images/w4.png'%}" alt="">
+          </div>
+          <div class="detail-box">
+            <h5>
+              Reliable Performance
+            </h5>
+            <p>
+              Our systems are rigorously tested for durability and effectiveness, providing you with a trustworthy security solution 
+              that can withstand real-world challenges. You can rely on our technology to deliver consistent performance, keeping 
+              you and your property safe at all times
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="btn-box">
+        <a href="">
+          Read More
+        </a>
+      </div> -->
+    </div>
+  </section>
+
+  <!-- end why section -->
+
+  <!-- team section -->
+  <section class="team_section layout_padding">
+    <div class="container-fluid">
+      <div class="heading_container heading_center">
+        <h2 class="">
+          Our <span> Team</span>
+        </h2>
+      </div>
+
+      <div class="team_container">
+        <div class="row">
+          <div class="col-lg-3 col-sm-6">
+            <div class="box ">
+              <div class="img-box">
+                <img src="{% static 'images/devnath.jpg'%}" class="img1" alt="">
+              </div>
+              <div class="detail-box">
+                <h5>
+                  Devnath P
+                </h5>
+                <p>
+                  Head of Team
+                </p>
+              </div>
+              <div class="social_box">
+                <a href="tel:+919061159287">
+                  <i class="fa fa-phone" aria-hidden="true"></i>
+                </a>
+                <a href="mailto:devnathdivya6@gmail.com">
+                  <i class="fa fa-envelope" aria-hidden="true"></i>
+                </a>
+                <a href="https://wa.me/9061159287?text=Hello%20there!">
+                  <i class="fa fa-whatsapp" aria-hidden="true"></i>
+                </a>
+                <a href="https://www.instagram.com/p_devnath/">
+                  <i class="fa fa-instagram" aria-hidden="true"></i>
+                </a>
+                <a href="#">
+                  <i class="fa fa-youtube-play" aria-hidden="true"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-sm-6">
+            <div class="box ">
+              <div class="img-box">
+                <img src="{% static 'images/Victor.jpg' %}" class="img1" alt="">
+              </div>
+              <div class="detail-box">
+                <h5>
+                  Victor George
+                </h5>
+                <p>
+                  Designer
+                </p>
+              </div>
+              <div class="social_box">
+                <a href="tel:+918891790981">
+                  <i class="fa fa-phone" aria-hidden="true"></i>
+                </a>
+                <a href="mailto:victorshibu10@gmail.com">
+                  <i class="fa fa-envelope" aria-hidden="true"></i>
+                </a>
+                <a href="https://wa.me/8891790981?text=Hello%20there!">
+                  <i class="fa fa-whatsapp" aria-hidden="true"></i>
+                </a>
+                <a href="https://www.instagram.com/__victor__george__/">
+                  <i class="fa fa-instagram" aria-hidden="true"></i>
+                </a>
+                <a href="#">
+                  <i class="fa fa-youtube-play" aria-hidden="true"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-sm-6">
+            <div class="box ">
+              <div class="img-box">
+                <img src="{% static 'images/surag.jpg' %}" class="img1" alt="">
+              </div>
+              <div class="detail-box">
+                <h5>
+                  Surag PS
+                </h5>
+                <p>
+                  Tester
+                </p>
+              </div>
+              <div class="social_box">
+                <a href="tel:+917593988215">
+                  <i class="fa fa-phone" aria-hidden="true"></i>
+                </a>
+                <a href="mailto:suragpsanthosh@gmail.com">
+                  <i class="fa fa-envelope" aria-hidden="true"></i>
+                </a>
+                <a href="https://wa.me/7593988215?text=Hello%20there!">
+                  <i class="fa fa-whatsapp" aria-hidden="true"></i>
+                </a>
+                <a href="https://www.instagram.com/_surag_ps_/">
+                  <i class="fa fa-instagram" aria-hidden="true"></i>
+                </a>
+                <a href="#">
+                  <i class="fa fa-youtube-play" aria-hidden="true"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-sm-6">
+            <div class="box ">
+              <div class="img-box">
+                <img src="{% static 'images/joshua.jpg' %}" class="img1" alt="">
+              </div>
+              <div class="detail-box">
+                <h5>
+                  Joshua Isaac
+                </h5>
+                <p>
+                  Developer
+                </p>
+              </div>
+              <div class="social_box">
+                <a href="tel:+917558996793">
+                  <i class="fa fa-phone" aria-hidden="true"></i>
+                </a>
+                <a href="mailto:isaacjoshua59@gmail.com">
+                  <i class="fa fa-envelope" aria-hidden="true"></i>
+                </a>
+                <a href="https://wa.me/7558996793?text=Hello%20there!">
+                  <i class="fa fa-whatsapp" aria-hidden="true"></i>
+                </a>
+                <a href="https://www.instagram.com/__centodieci__/">
+                  <i class="fa fa-instagram" aria-hidden="true"></i>
+                </a>
+                <a href="https://www.youtube.com/@joshuaisaac4193">
+                  <i class="fa fa-youtube-play" aria-hidden="true"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end team section -->
+
+
+  <!-- client section -->
+
+  <section class="client_section layout_padding">
+    <div class="container">
+      <div class="heading_container heading_center psudo_white_primary mb_45">
+        <h2>
+          What says our <span>Customers</span>
+        </h2>
+      </div>
+      <div class="carousel-wrap ">
+        <div class="owl-carousel client_owl-carousel">
+          <div class="item">
+            <div class="box">
+              <div class="img-box">
+                <img src="{% static 'images/albert.jpg'%}" alt="" class="box-img">
+              </div>
+              <div class="detail-box">
+                <div class="client_id">
+                  <div class="client_info">
+                    <h6>
+                      Albert CS
+                    </h6>
+                    <p>
+                      NVIDIA
+                    </p>
+                  </div>
+                  <i class="fa fa-quote-left" aria-hidden="true"></i>
+                </div>
+                <p>
+                  I used the application and found it really helpful in maintaining the security of my home              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="box">
+              <div class="img-box">
+                <img src="{% static 'images/akarsha.jpg'%}" alt="" class="box-img">
+              </div>
+              <div class="detail-box">
+                <div class="client_id">
+                  <div class="client_info">
+                    <h6>
+                      Akarsha P
+                    </h6>
+                    <p>
+                      Microsoft
+                    </p>
+                  </div>
+                  <i class="fa fa-quote-left" aria-hidden="true"></i>
+                </div>
+                <p>
+                  This app  highlights the key strengths of the camera while identifying a few potential areas for improvement to make it even more robust.</p>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="box">
+              <div class="img-box">
+                <img src="{% static 'images/Sreelakshmi.jpg'%}" alt="" class="box-img">
+              </div>
+              <div class="detail-box">
+                <div class="client_id">
+                  <div class="client_info">
+                    <h6>
+                      Sreelakshmi M
+                    </h6>
+                    <p>
+                      GOOGLE
+                    </p>
+                  </div>
+                  <i class="fa fa-quote-left" aria-hidden="true"></i>
+                </div>
+                <p>
+                  The enhanced security system provides comprehensive protection through advanced features, making it an invaluable investment.              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="box">
+              <div class="img-box">
+                <img src="{% static 'images/Suhail.jpg'%}" alt="" class="box-img">
+              </div>
+              <div class="detail-box">
+                <div class="client_id">
+                  <div class="client_info">
+                    <h6>
+                       Mohammed Suhail
+                    </h6>
+                    <p>
+                      AMD
+                    </p>
+                  </div>
+                  <i class="fa fa-quote-left" aria-hidden="true"></i>
+                </div>
+                <p>
+                  The camera offers near-instant detection and alerts, with no noticeable lag in face or object recognition to make it fast.              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- end client section -->
+
+
+  <!-- info section -->
+
+  {% include 'footer.html'%}
+</body>
+
+</html>

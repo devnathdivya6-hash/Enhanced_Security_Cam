@@ -1,0 +1,132 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+    <link rel="shortcut icon" href="{% static 'images/logo-removebg-preview.png'%}" type="">
+
+  <title> Enhanced Security Cam </title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css'%}" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/style.css'%}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{% static 'css/responsive.css'%}" rel="stylesheet" />
+
+</head>
+<body class="sub_page">
+
+    <div class="hero_area">
+  
+      <div class="hero_bg_box">
+        <div class="bg_img_box">
+          <img src="{% static 'images/hero-bg.png'%}" alt="">
+        </div>
+      </div>
+      {% include 'header.html'%}
+
+<style>
+    
+    .containers {
+        max-width: 800px;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+    .message-box {
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin: 10px 0;
+        background-color: #fff;
+        text-align: left;
+        position: relative;
+    }
+    .admin-response {
+        background-color: #e6ffe6;
+        border-left: 5px solid #28a745;
+        padding: 10px;
+        margin-top: 10px;
+        position: relative;
+    }
+    .no-response {
+        color: red;
+        font-style: italic;
+    }
+    .tts-button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        font-size: 14px;
+        cursor: pointer;
+        border-radius: 5px;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+    .tts-button:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+
+<div class="containers">
+    <h2>Your Messages</h2>
+
+    {% for message in user_messages %}
+        <div class="message-box">
+            <p><strong>Your Message:</strong> {{ message.message }}</p>
+            {% if message.response %}
+                <div class="admin-response">
+                    <p><strong>Admin Response:</strong> 
+                        <span id="response-text-{{ message.id }}" style="display: none;" >
+                            {{ message.response }}
+                        </span></p>
+                    <button class="tts-button" onclick="speakText('{{ message.id }}')">🔊 Play Response</button>
+                </div>
+            {% else %}
+                <p class="no-response">Admin has not responded yet.</p>
+            {% endif %}
+        </div>
+    {% empty %}
+        <p>You haven't sent any messages yet.</p>
+    {% endfor %}
+</div>
+
+<script>
+    function speakText(messageId) {
+        let text = document.getElementById("response-text-" + messageId).innerText;
+        let speech = new SpeechSynthesisUtterance();
+        speech.text = text;
+        speech.lang = "en-US"; // Change this if needed (e.g., "hi-IN" for Hindi, "fr-FR" for French)
+        speech.volume = 1; // Volume (0 to 1)
+        speech.rate = 1; // Speed (0.5 to 2)
+        speech.pitch = 1; // Pitch (0 to 2)
+        window.speechSynthesis.speak(speech);
+    }
+</script>
+
+</body>
+{% include 'footer.html' %}

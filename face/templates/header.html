@@ -1,0 +1,107 @@
+{% load static %}
+{% if messages %}
+{% for message in messages %}
+{% if 'log' in message.tags %}
+	<script>
+		alert("{{ message }}")
+	</script>
+{% endif %}
+{% endfor %}
+{% endif %}
+<!-- header section strats -->
+<header class="header_section">
+    <div class="container-fluid">
+      <nav class="navbar navbar-expand-lg custom_nav-container ">
+        <a class="navbar-brand" href="/">
+          <span>
+            Cipher
+          </span>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class=""> </span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav">
+            
+          
+            <!-- Conditional rendering based on usertype -->
+            {% if user.is_authenticated %}
+            {% if user.usertype == "admin" %}
+              <!-- Links for usertype 0 -->
+              <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <!-- <li class="nav-item">
+                <a class="nav-link" href="/about">About</a>
+              </li> -->
+              <li class="nav-item">
+                <a class="nav-link" href="/viewusers">View Users</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin-messages">View Messages</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/logout">Sign Out</a>
+              </li>
+            {% elif user.usertype == "user" %}
+              <!-- Links for usertype 1 -->
+              <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <!-- <li class="nav-item">
+                <a class="nav-link" href="/about">About</a>
+              </li> -->
+              <li class="nav-item">
+                <a class="nav-link" href="/detect/"> Objects</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/scanface">Scan Faces</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/upload_video"> Violence</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/record_voice">Message</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/my-messages">Responses</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/profile">Profile</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/logout">Sign Out</a>
+              </li>
+            {% endif %}
+
+            {% else %}
+              <!-- Links for unauthenticated users -->
+              <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/about">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/service">Services</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/why">Why Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/team">Team</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/login"><i class="fa fa-user" aria-hidden="true"></i> Sign In</a>
+              </li>
+            {% endif %}
+          
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <!-- end header section -->
+</div>

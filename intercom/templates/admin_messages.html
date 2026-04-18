@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+    <link rel="shortcut icon" href="{% static 'images/logo-removebg-preview.png'%}" type="">
+
+  <title> Enhanced Security Cam </title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css'%}" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/style.css'%}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{% static 'css/responsive.css'%}" rel="stylesheet" />
+
+</head>
+<body class="sub_page">
+
+    <div class="hero_area">
+  
+      <div class="hero_bg_box">
+        <div class="bg_img_box">
+          <img src="{% static 'images/hero-bg.png'%}" alt="">
+        </div>
+      </div>
+      {% include 'header.html'%}
+    <style>
+        
+        .containers {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .message-box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #fff;
+            text-align: left;
+        }
+        .response-box {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .submit-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .submit-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+
+
+    <div class="containers">
+        <h2>Admin Message Review</h2>
+        {% for message in messages_list %}
+            <div class="message-box">
+                <p><strong>User:</strong> {{ message.user.username }}</p>
+                <p><strong>Message:</strong> {{ message.message }}</p>
+
+                {% if message.response %}
+                    <p><strong>Admin Response:</strong> {{ message.response }}</p>
+                {% else %}
+                    <form method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="message_id" value="{{ message.id }}">
+                        <textarea class="response-box" name="response_text" placeholder="Write your response here..." required></textarea>
+                        <button type="submit" class="submit-btn">Submit Response</button>
+                    </form>
+                {% endif %}
+            </div>
+        {% empty %}
+            <p>No messages available.</p>
+        {% endfor %}
+    </div>
+
+{% include 'footer.html' %}

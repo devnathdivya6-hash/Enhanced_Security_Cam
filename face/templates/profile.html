@@ -1,0 +1,224 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+    <link rel="shortcut icon" href="{% static 'images/favicon.png'%}" type="">
+
+  <title> Enhanced Security Cam </title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css'%}" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/style.css'%}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{% static 'css/responsive.css'%}" rel="stylesheet" />
+  <style>
+    body {
+        background-color: #f0f0f0; /* Light grey */
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .headers {
+        background-color: #007bff; /* Blue */
+        padding: 20px;
+        text-align: center;
+        color: white;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        margin: 0;
+        font-size: 2.5em;
+        font-weight: bold;
+    }
+
+    .containers {
+        max-width: 700px;
+        margin: 50px auto;
+        background-color: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .containers:before {
+        content: '';
+        position: absolute;
+        width: 150%;
+        height: 150%;
+        top: -25%;
+        left: -25%;
+        background: radial-gradient(circle, rgba(0, 123, 255, 0.3), transparent);
+        z-index: -1;
+        transform: rotate(45deg);
+    }
+
+    .description-section {
+        margin-bottom: 20px;
+        font-size: 1.2em;
+        color: #333;
+        max-width: 600px; /* Adjust the max-width to fit your design */
+        margin: auto; /* Centers the section */
+    }
+
+    .profile-row {
+    display: flex;
+    justify-content: space-between; /* Space between label and value */
+    margin-bottom: 10px; /* Adds space between rows */
+  }
+
+  .label-column {
+    width: 40%; /* Adjust this percentage as needed */
+    text-align: left; /* Align text to the left */
+  }
+
+  .value-column {
+    width: 55%; /* Adjust this percentage as needed */
+    text-align: right; /* Align text to the right */
+  }
+
+    .button-section {
+        border-radius: 10px;
+        margin: 20px 0;
+        width: 100%;
+        display: inline-block;
+        text-align: left;
+        padding: 10px 15px;
+        font-size: 16px;
+    }
+
+    button {
+        background-color: #007bff; /* Blue */
+        color: white;
+        padding: 10px 20px; /* Smaller button */
+        border: none;
+        border-radius: 10px;
+        font-size: 1em;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    /* Animated circles */
+    .circle {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.3;
+        animation: moveCircle 10s infinite;
+    }
+
+    .circle.blue {
+        background-color: #007bff;
+        width: 200px;
+        height: 200px;
+        top: -50px;
+        right: -100px;
+    }
+
+    .circle.light-blue {
+        background-color: #e7f3ff;
+        width: 150px;
+        height: 150px;
+        bottom: -50px;
+        left: -100px;
+    }
+
+    @keyframes moveCircle {
+        0% {
+            transform: translateY(0) translateX(0);
+        }
+        50% {
+            transform: translateY(50px) translateX(50px);
+        }
+        100% {
+            transform: translateY(0) translateX(0);
+        }
+    }
+</style>
+
+
+</head>
+
+<body class="sub_page">
+
+  <div class="hero_area">
+
+    <div class="hero_bg_box">
+      <div class="bg_img_box">
+        <img src="{% static 'images/hero-bg.png'%}" alt="">
+      </div>
+    </div>
+    {% include 'header.html'%}
+
+
+      <div class="headers">
+        <h1>Profile</h1>
+    </div>
+
+    <div class="containers">
+        <div class="circle blue"></div>
+        <div class="circle light-blue"></div>
+
+        <div class="description-section">
+            <div class="profile-row d-flex">
+              <!-- Left column: Labels -->
+              <div class="button-section btn btn-primary label-column">
+                Username:
+              </div>
+              <!-- Right column: Values -->
+              <div class="button-section btn btn-primary value-column">
+                {{ user.username }}
+              </div>
+            </div>
+          
+            <div class="profile-row d-flex">
+              <div class="button-section btn btn-primary label-column">
+                Email:
+              </div>
+              <div class="button-section btn btn-primary value-column">
+                {{ user.email }}
+              </div>
+            </div>
+          
+            <div class="profile-row d-flex">
+              <div class="button-section btn btn-primary label-column">
+                Contact Number:
+              </div>
+              <div class="button-section btn btn-primary value-column">
+                {{ user.contact_number }}
+              </div>
+            </div>
+          </div>
+    </div>
+</div>
+      
+
+{% include 'footer.html' %}

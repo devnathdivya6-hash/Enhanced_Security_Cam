@@ -1,0 +1,176 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+    <link rel="shortcut icon" href="{% static 'images/logo-removebg-preview.png'%}" type="">
+
+  <title> Enhanced Security Cam </title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css'%}" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/style.css'%}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{% static 'css/responsive.css'%}" rel="stylesheet" />
+
+</head>
+<body class="sub_page">
+
+    <div class="hero_area">
+  
+      <div class="hero_bg_box">
+        <div class="bg_img_box">
+          <img src="{% static 'images/hero-bg.png'%}" alt="">
+        </div>
+      </div>
+      {% include 'header.html'%}
+
+      <style>
+        .containers {
+        max-width: 800px;
+        margin: 20px auto 20px auto;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+    .send-message-button{
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        margin: 10px 0;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+      </style>
+
+    <div class="containers">
+        <h2>Send a Message</h2>
+        <p>Click the button below to record and send a message (via Speech-to-Text)</p>
+
+        <!-- CSRF Token -->
+        <input type="hidden" id="csrf-token" value="{{ csrf_token }}">
+
+        <!-- Button to start/stop recording -->
+        <button type="button" id="start-recording" class="send-message-button">Start Recording</button>
+
+        <!-- Audio Player -->
+        <div id="audio-container" class="audio-container">
+            <h5>Recorded Audio:</h5>
+            <audio id="audio-player" controls></audio>
+        </div>
+
+        <!-- Download Link
+        <div id="download-container" class="download-container">
+            <a id="download-link" href="#" download="recording.webm" class="btn btn-success">Download Recording</a> -->
+        </div>
+
+        <!-- Display the response after message submission -->
+        <div id="response-container" class="response-container"></div>
+    </div>
+
+    <script>
+      let mediaRecorder;
+      let audioChunks = [];
+  
+      function startRecording() {
+          navigator.mediaDevices.getUserMedia({ audio: true })
+              .then(stream => {
+                  // ✅ Use WebM format (WAV is not supported)
+                  mediaRecorder = new MediaRecorder(stream, { mimeType: "audio/webm" });
+  
+                  mediaRecorder.ondataavailable = function (event) {
+                      audioChunks.push(event.data);
+                  };
+  
+                  mediaRecorder.onstop = function () {
+                      const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                      saveAudio(audioBlob);
+                      sendAudioToServer(audioBlob);
+                  };
+  
+                  audioChunks = [];
+                  mediaRecorder.start();
+              })
+              .catch(error => {
+                  console.error("Error accessing the microphone:", error);
+              });
+      }
+  
+      function stopRecording() {
+          if (mediaRecorder) {
+              mediaRecorder.stop();
+          }
+      }
+  
+      document.getElementById('start-recording').addEventListener('click', function () {
+          if (mediaRecorder && mediaRecorder.state === "recording") {
+              stopRecording();
+              this.textContent = "Start Recording";
+          } else {
+              startRecording();
+              this.textContent = "Stop Recording";
+          }
+      });
+  
+      function saveAudio(audioBlob) {
+          const url = URL.createObjectURL(audioBlob);
+          
+          // Set download link
+        //   const downloadLink = document.getElementById("download-link");
+        //   downloadLink.href = url;
+        //   downloadLink.style.display = "block";
+  
+          // Set audio player
+          const audioContainer = document.getElementById("audio-container");
+          const audioPlayer = document.getElementById("audio-player");
+          
+          audioPlayer.src = url;
+          audioContainer.style.display = "block";
+      }
+  
+      function sendAudioToServer(audioBlob) {
+          const formData = new FormData();
+          formData.append('audio_blob', audioBlob, 'recording.webm');  // ✅ WebM format
+  
+          const csrfToken = document.getElementById('csrf-token').value;
+  
+          fetch("{% url 'send_message' %}", {
+              method: 'POST',
+              body: formData,
+              headers: { 'X-CSRFToken': csrfToken }
+          })
+          .then(response => response.json())
+          .then(data => {
+              document.getElementById('recognized-text').textContent = data.text || "Could not recognize speech.";
+          })
+          .catch(error => {
+              console.error("Error:", error);
+          });
+      }
+  </script>
+  
+  
+{% include 'footer.html'%}
+

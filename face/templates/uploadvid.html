@@ -1,0 +1,157 @@
+{% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Upload Button</title>
+    <style>
+        body {
+            background-color: #f0f0f0; /* Light grey */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #007bff; /* Blue */
+            padding: 20px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 50px auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container:before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            top: -25%;
+            left: -25%;
+            background: radial-gradient(circle, rgba(0, 123, 255, 0.3), transparent);
+            z-index: -1;
+            transform: rotate(45deg);
+        }
+
+        .description-section {
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        .button-section {
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        button {
+            background-color: #007bff; /* Blue */
+            color: white;
+            padding: 10px 20px; /* Smaller button */
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Hidden file input */
+        #videoUpload {
+            display: none;
+        }
+
+        /* Animated circles */
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: moveCircle 10s infinite;
+        }
+
+        .circle.blue {
+            background-color: #007bff;
+            width: 200px;
+            height: 200px;
+            top: -50px;
+            right: -100px;
+        }
+
+        .circle.light-blue {
+            background-color: #e7f3ff;
+            width: 150px;
+            height: 150px;
+            bottom: -50px;
+            left: -100px;
+        }
+
+        @keyframes moveCircle {
+            0% {
+                transform: translateY(0) translateX(0);
+            }
+            50% {
+                transform: translateY(50px) translateX(50px);
+            }
+            100% {
+                transform: translateY(0) translateX(0);
+            }
+        }
+    </style>
+</head>
+{% include 'header.html'%}
+<body>
+
+    <div class="header">
+        <h1>Upload Your Video</h1>
+    </div>
+
+    <div class="container">
+        <div class="circle blue"></div>
+        <div class="circle light-blue"></div>
+
+        <div class="description-section">
+            <p>Description: Click the button below to upload a video file. Supported formats: mp4, avi, mov, etc.</p>
+        </div>
+
+        <div class="button-section">
+            <button onclick="document.getElementById('videoUpload').click()">Upload Video</button>
+            <input type="file" id="videoUpload" accept="video/*" onchange="handleFileUpload()">
+        </div>
+    </div>
+
+    <script>
+        function handleFileUpload() {
+            const videoFile = document.getElementById('videoUpload').files[0];
+            if (videoFile) {
+                alert(`Video file "${videoFile.name}" selected for upload!`);
+            } else {
+                alert("No video file selected.");
+            }
+        }
+    </script>
+{% include 'footer.html'%}
+
+</body>
+</html>

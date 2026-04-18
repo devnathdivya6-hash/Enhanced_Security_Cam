@@ -1,0 +1,133 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="{% static 'images/logo-removebg-preview.png'%}" type="">
+  <title> Enhanced Security Cam </title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css'%}" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="{% static 'css/font-awesome.min.css'%}" rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/style.css'%}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{% static 'css/responsive.css'%}" rel="stylesheet" />
+
+</head>
+
+<body class="sub_page">
+
+  <div class="hero_area">
+
+    <div class="hero_bg_box">
+      <div class="bg_img_box">
+        <img src="{% static 'images/hero-bg.png'%}" alt="">
+      </div>
+    </div>
+    {% include 'header.html'%}
+  <!-- why section -->
+
+  <section class="why_section layout_padding">
+    <div class="container">
+      <div class="heading_container heading_center">
+        <h2>
+          Why Choose <span>Us</span>
+        </h2>
+      </div>
+      <div class="why_container">
+        <div class="box">
+          <div class="img-box">
+            <img src="{% static 'images/w1.png'%}" alt="">
+          </div>
+          <div class="detail-box">
+            <h5>
+              Advanced Security Features
+            </h5>
+            <p>
+              Our cutting-edge surveillance systems are equipped with state-of-the-art features like facial recognition, 
+              object detection, and violence detection. These technologies enhance your security by accurately identifying potential 
+              threats and providing you with the information needed to respond swiftly
+            </p>
+          </div>
+        </div>
+        <div class="box">
+          <div class="img-box">
+            <img src="{% static 'images/w2.png'%}" alt="">
+          </div>
+          <div class="detail-box">
+            <h5>
+              Remote Monitoring
+            </h5>
+            <p>
+              Our innovative intercom system allows you to monitor and control your security setup from anywhere in the world. 
+              Whether you're at home or on the go, you can easily access live feeds and communicate with visitors, giving you peace 
+              of mind and enhanced control over your premises
+            </p>
+          </div>
+        </div>
+        <div class="box">
+          <div class="img-box">
+            <img src="{% static 'images/w3.png'%}" alt="">
+          </div>
+          <div class="detail-box">
+            <h5>
+              Tailored Solutions
+            </h5>
+            <p>
+              We understand that every environment has unique security needs. Our team collaborates closely with you to design 
+              customized security solutions that address your specific concerns, ensuring optimal performance and protection 
+              tailored to your situation
+            </p>
+          </div>
+        </div>
+        <div class="box">
+          <div class="img-box">
+            <img src="{% static 'images/w4.png'%}" alt="">
+          </div>
+          <div class="detail-box">
+            <h5>
+              Reliable Performance
+            </h5>
+            <p>
+              Our systems are rigorously tested for durability and effectiveness, providing you with a trustworthy security solution 
+              that can withstand real-world challenges. You can rely on our technology to deliver consistent performance, keeping 
+              you and your property safe at all times
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="btn-box">
+        <a href="">
+          Read More
+        </a>
+      </div> -->
+    </div>
+  </section>
+
+  <!-- end why section -->
+
+  <!-- info section -->
+
+  {% include 'footer.html'%}
+</body>
+
+</html>

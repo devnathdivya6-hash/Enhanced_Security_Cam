@@ -1,0 +1,11 @@
+1. for voice to code first install 
+
+https://github.com/BtbN/FFmpeg-Builds/releases
+
+download : ffmpeg-master-latest-win64-gpl-shared.zip
+
+then extract and save in c drive 
+
+set environment variable path to c:\ffmpeg\bin
+
+2. install v2code.txt as it is requirements for voice to code

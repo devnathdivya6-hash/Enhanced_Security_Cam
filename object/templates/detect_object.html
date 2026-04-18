@@ -1,0 +1,264 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+    <link rel="shortcut icon" href="{% static 'images/favicon.png'%}" type="">
+
+  <title> Enhanced Security Cam </title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css'%}" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/style.css'%}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{% static 'css/responsive.css'%}" rel="stylesheet" />
+  
+
+<style>
+    body {
+        background-color: #f7f9fc; /* Light greyish background */
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .dropzone 
+    {
+        width: 500px;
+        height: 200px;
+        border: 2px dashed #467cce;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        align-items: center;
+        margin-left: 120px;
+        color: #e40e0e;
+    }
+
+    .dropzone.dragover {
+        border-color: #333;
+        color: #333;
+    }
+
+    .headers {
+        background-color: #007bff; /* Blue */
+        padding: 20px;
+        text-align: center;
+        color: white;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        margin: 0;
+        font-size: 2.5em;
+        font-weight: bold;
+    }
+
+    .containers {
+        max-width: 800px;
+        margin: 30px auto;
+        background-color: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .containers h2 {
+        color: #333;
+    }
+
+    .result-containers {
+        margin-top: 30px;
+    }
+
+    .result-image {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .detected-objects {
+        font-size: 1.2em;
+        color: #333;
+        margin-top: 20px;
+    }
+
+    .detected-objects ul {
+        text-align: left;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .detected-objects li {
+        background: #007bff;
+        color: white;
+        padding: 8px 15px;
+        margin: 5px 0;
+        border-radius: 5px;
+    }
+
+    button {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 10px;
+        font-size: 1em;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+</style>
+<body class="sub_page">
+
+    <div class="hero_area">
+  
+      <div class="hero_bg_box">
+        <div class="bg_img_box">
+          <img src="{% static 'images/hero-bg.png'%}" alt="">
+        </div>
+      </div>
+      {% include 'header.html'%}
+<body>
+
+    <div class="headers">
+        <h1>Object Detection</h1>
+    </div>
+    
+    <div class="containers">
+        <h2>Upload an Image to Detect Objects</h2>
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="file">Upload an Image to Check</label>
+            <input type="file" name="file" id="file" required>
+            <button type="submit">Upload</button>
+            <br><br>
+            <div class="dropzone" id="dropzone">
+                Drag and drop files here
+                <img id="uploaded-image" src="" alt="Uploaded Image" style="display: none; max-width: 100%; margin-top: 20px;">
+            </div>
+        </form>
+    
+        {% if illegal_detected_objects %}
+    <div class="detected-objects">
+        <h3>Illegal Objects Detected:</h3>
+        <ul>
+            {% for obj in illegal_detected_objects %}
+                <li>{{ obj }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% else %}
+    <p>No illegal objects detected.</p>
+{% endif %}
+
+    </div>
+    
+    <script>
+        const dropzone = document.getElementById('dropzone');
+        const fileInput = document.getElementById('file');
+        const uploadedImage = document.getElementById('uploaded-image');
+    
+        dropzone.addEventListener('dragover', (event) => {
+            event.preventDefault();
+            dropzone.classList.add('dragover');
+        });
+    
+        dropzone.addEventListener('dragleave', () => {
+            dropzone.classList.remove('dragover');
+        });
+    
+        dropzone.addEventListener('drop', (event) => {
+            event.preventDefault();
+            dropzone.classList.remove('dragover');
+            const files = event.dataTransfer.files;
+            console.log('Files dropped:', files);
+            fileInput.files = files;
+    
+            // Display the uploaded image inside the dropzone
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                uploadedImage.src = e.target.result;
+                uploadedImage.style.display = 'block';
+            };
+            reader.readAsDataURL(files[0]);
+        });
+    
+        fileInput.addEventListener('change', (event) => {
+            const files = event.target.files;
+            console.log('Files selected:', files);
+    
+            // Display the uploaded image inside the dropzone
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                uploadedImage.src = e.target.result;
+                uploadedImage.style.display = 'block';
+            };
+            reader.readAsDataURL(files[0]);
+        });
+    </script>
+    
+    <style>
+        .dropzone {
+            width: 500px;
+            height: 200px;
+            border: 2px dashed #2171f1;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: #ec2121;
+            margin-left: 120px;
+            position: relative;
+        }
+        .dropzone.dragover {
+            border-color: #333;
+            color: #333;
+        }
+        .dropzone img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 50%;
+            object-fit: cover;
+            margin-left: 125px;
+            margin-bottom: 3000px;
+            border-radius: 10px;
+        }
+    </style>
+    
+    
+{% include 'footer.html' %}

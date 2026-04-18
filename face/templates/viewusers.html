@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+    <link rel="shortcut icon" href="{% static 'images/favicon.png'%}" type="">
+
+  <title> Enhanced Security Cam </title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css'%}" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/style.css'%}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{% static 'css/responsive.css'%}" rel="stylesheet" />
+
+  <style>
+    .bb{
+        width: 300px;
+    }
+    th{
+        font-size: large;
+        color: black;
+        font-weight: bolder;
+    }
+    .ttt{
+        background-color: blue;
+    }
+    td{
+        color: black;
+    }
+    .tttt{
+        height: 100vh;
+    }
+    .table{
+        margin-left: 50px;
+        margin-right: 50px;
+        width: 100%;
+        max-width: 1250px;
+    }
+</style>
+
+
+</head>
+
+<body class="sub_page">
+
+  <div class="hero_area">
+
+    <div class="hero_bg_box">
+      <div class="bg_img_box">
+        <img src="{% static 'images/hero-bg.png'%}" alt="">
+      </div>
+    </div>
+    {% include 'header.html'%}
+
+    
+
+<div class="tttt">
+    
+    <center>
+        <h2 class="py-5">Registered Users</h2>
+    </center>
+
+    <table class="table table-striped">
+        <tr class="ttt">
+            <th>SL.NO</th> 
+            <th>USERNAME</th>
+            <th>EMAIL</th>
+            <th>CONTACT</th>
+            <th>Actions</th>
+        </tr>
+        {% if users %}
+            {% for user in users %}
+                <tr>
+                    <td>{{ forloop.counter }}</td> 
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.contact_number }}</td>
+                    <td><a href="{% url 'delete_user' user.id %}"><button class="btn btn-danger">Delete User</button></a></td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="4">No registered users found.</td>
+            </tr>
+        {% endif %}
+    </table>
+</div>
+
+
+{% include 'footer.html' %}
